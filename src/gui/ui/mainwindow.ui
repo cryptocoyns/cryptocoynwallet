@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../../resources.qrc">
-    <normaloff>:/images/cryptonote</normaloff>:/images/cryptonote</iconset>
+    <normaloff>:/images/cryptocoyn</normaloff>:/images/cryptocoyn</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
