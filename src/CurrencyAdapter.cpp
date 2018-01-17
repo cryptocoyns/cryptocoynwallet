@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "CurrencyAdapter.h"
-#include "CryptoNoteWalletConfig.h"
+#include "CryptoCoynWalletConfig.h"
 #include "LoggerAdapter.h"
 
 namespace WalletGui {
