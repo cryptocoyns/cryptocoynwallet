@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-include(CryptoNoteWallet.cmake)
+include(CryptoCoynWallet.cmake)
 
 project(${CN_PROJECT_NAME})
 
@@ -12,9 +12,9 @@ set(CRYPTONOTE_LIB cryptonote)
 
 include_directories(${CMAKE_BINARY_DIR}
     src
-    cryptonote/external
-    cryptonote/include
-    cryptonote/src)
+    cryptocoynwallet/external
+    cryptocoynwallet/include
+    cryptocoynwallet/src)
 
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
@@ -35,7 +35,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 set(VERSION "")
-configure_file("cryptonote/src/version.h.in" "version.h")
+configure_file("cryptocoynwallet/src/version.h.in" "version.h")
 configure_file("src/CryptoNoteWalletConfig.h.in" "CryptoNoteWalletConfig.h")
 
 add_definitions(-DGIT_REVISION=\"${GIT_REVISION}\")
@@ -43,130 +43,130 @@ add_definitions(-DGIT_REVISION=\"${GIT_REVISION}\")
 set(CMAKE_AUTOMOC ON)
 
 set(CRYPTONOTE_SOURCES
-  cryptonote/external/miniupnpc/connecthostport.c
-  cryptonote/external/miniupnpc/igd_desc_parse.c
-  cryptonote/external/miniupnpc/minisoap.c
-  cryptonote/external/miniupnpc/miniupnpc.c
-  cryptonote/external/miniupnpc/miniwget.c
-  cryptonote/external/miniupnpc/minixml.c
-  cryptonote/external/miniupnpc/portlistingparse.c
-  cryptonote/external/miniupnpc/receivedata.c
-  cryptonote/external/miniupnpc/upnpcommands.c
-  cryptonote/external/miniupnpc/upnpreplyparse.c
-  cryptonote/src/Common/Base58.cpp
-  cryptonote/src/Common/CommandLine.cpp
-  cryptonote/src/Common/Util.cpp
-  cryptonote/src/Common/StringTools.cpp
-  cryptonote/src/Common/JsonValue.cpp
-  cryptonote/src/Common/ConsoleTools.cpp
-  cryptonote/src/Common/MemoryInputStream.cpp
-  cryptonote/src/Common/PathTools.cpp
-  cryptonote/src/Common/StdInputStream.cpp
-  cryptonote/src/Common/StdOutputStream.cpp
-  cryptonote/src/Common/StreamTools.cpp
-  cryptonote/src/Common/StringOutputStream.cpp
-  cryptonote/src/Common/StringView.cpp
-  cryptonote/src/Common/VectorOutputStream.cpp
-  cryptonote/src/crypto/blake256.c
-  cryptonote/src/crypto/chacha8.c
-  cryptonote/src/crypto/crypto-ops-data.c
-  cryptonote/src/crypto/crypto-ops.c
-  cryptonote/src/crypto/crypto.cpp
-  cryptonote/src/crypto/groestl.c
-  cryptonote/src/crypto/hash-extra-blake.c
-  cryptonote/src/crypto/hash-extra-groestl.c
-  cryptonote/src/crypto/hash-extra-jh.c
-  cryptonote/src/crypto/hash-extra-skein.c
-  cryptonote/src/crypto/hash.c
-  cryptonote/src/crypto/jh.c
-  cryptonote/src/crypto/keccak.c
-  cryptonote/src/crypto/oaes_lib.c
-  cryptonote/src/crypto/random.c
-  cryptonote/src/crypto/skein.c
-  cryptonote/src/crypto/slow-hash.c
-  cryptonote/src/crypto/slow-hash.cpp
-  cryptonote/src/crypto/tree-hash.c
-  cryptonote/src/CryptoNoteCore/BlockchainIndices.cpp
-  cryptonote/src/CryptoNoteCore/BlockchainMessages.cpp
-  cryptonote/src/CryptoNoteCore/BlockIndex.cpp
-  cryptonote/src/CryptoNoteCore/CoreConfig.cpp
-  cryptonote/src/CryptoNoteCore/CryptoNoteBasic.cpp
-  cryptonote/src/CryptoNoteCore/CryptoNoteTools.cpp
-  cryptonote/src/CryptoNoteCore/Currency.cpp
-  cryptonote/src/CryptoNoteCore/MinerConfig.cpp
-  cryptonote/src/CryptoNoteCore/Transaction.cpp
-  cryptonote/src/CryptoNoteCore/Account.cpp
-  cryptonote/src/CryptoNoteCore/Blockchain.cpp
-  cryptonote/src/CryptoNoteCore/Checkpoints.cpp
-  cryptonote/src/CryptoNoteCore/CryptoNoteBasicImpl.cpp
-  cryptonote/src/CryptoNoteCore/Core.cpp
-  cryptonote/src/CryptoNoteCore/CryptoNoteFormatUtils.cpp
-  cryptonote/src/CryptoNoteCore/CryptoNoteSerialization.cpp
-  cryptonote/src/CryptoNoteCore/Difficulty.cpp
-  cryptonote/src/CryptoNoteCore/IBlock.cpp
-  cryptonote/src/CryptoNoteCore/Miner.cpp
-  cryptonote/src/CryptoNoteCore/TransactionExtra.cpp
-  cryptonote/src/CryptoNoteCore/TransactionPool.cpp
-  cryptonote/src/CryptoNoteCore/TransactionPrefixImpl.cpp
-  cryptonote/src/CryptoNoteCore/TransactionUtils.cpp
-  cryptonote/src/InProcessNode/InProcessNode.cpp
-  cryptonote/src/InProcessNode/InProcessNodeErrors.cpp
-  cryptonote/src/NodeRpcProxy/NodeErrors.cpp
-  cryptonote/src/NodeRpcProxy/NodeRpcProxy.cpp
-  cryptonote/src/P2p/NetNodeConfig.cpp
-  cryptonote/src/Serialization/BinaryInputStreamSerializer.cpp
-  cryptonote/src/Serialization/BinaryOutputStreamSerializer.cpp
-  cryptonote/src/Serialization/JsonInputValueSerializer.cpp
-  cryptonote/src/Serialization/JsonOutputStreamSerializer.cpp
-  cryptonote/src/Serialization/KVBinaryInputStreamSerializer.cpp
-  cryptonote/src/Serialization/KVBinaryOutputStreamSerializer.cpp
-  cryptonote/src/Serialization/SerializationOverloads.cpp
-  cryptonote/src/Transfers/BlockchainSynchronizer.cpp
-  cryptonote/src/Transfers/SynchronizationState.cpp
-  cryptonote/src/Transfers/TransfersConsumer.cpp
-  cryptonote/src/Transfers/TransfersContainer.cpp
-  cryptonote/src/Transfers/TransfersSubscription.cpp
-  cryptonote/src/Transfers/TransfersSynchronizer.cpp
-  cryptonote/src/Wallet/LegacyKeysImporter.cpp
-  cryptonote/src/Wallet/WalletAsyncContextCounter.cpp
-  cryptonote/src/Wallet/WalletErrors.cpp
-  cryptonote/src/WalletLegacy/KeysStorage.cpp
-  cryptonote/src/WalletLegacy/WalletLegacy.cpp
-  cryptonote/src/WalletLegacy/WalletHelper.cpp
-  cryptonote/src/WalletLegacy/WalletLegacySerializer.cpp
-  cryptonote/src/WalletLegacy/WalletLegacySerialization.cpp
-  cryptonote/src/WalletLegacy/WalletTransactionSender.cpp
-  cryptonote/src/WalletLegacy/WalletUnconfirmedTransactions.cpp
-  cryptonote/src/WalletLegacy/WalletUserTransactionsCache.cpp
-  cryptonote/src/System/ContextGroup.cpp
-  cryptonote/src/System/Event.cpp
-  cryptonote/src/System/EventLock.cpp
-  cryptonote/src/System/InterruptedException.cpp
-  cryptonote/src/System/Ipv4Address.cpp
-  cryptonote/src/System/TcpStream.cpp
-  cryptonote/src/HTTP/HttpRequest.cpp
-  cryptonote/src/HTTP/HttpParser.cpp
-  cryptonote/src/HTTP/HttpParserErrorCodes.cpp
-  cryptonote/src/HTTP/HttpResponse.cpp
-  cryptonote/src/Rpc/HttpClient.cpp
-  cryptonote/src/Rpc/JsonRpc.cpp
-  cryptonote/src/P2p/NetNode.cpp
-  cryptonote/src/P2p/LevinProtocol.cpp
-  cryptonote/src/P2p/NetNodeConfig.cpp
-  cryptonote/src/P2p/PeerListManager.cpp
-  cryptonote/src/CryptoNoteProtocol/CryptoNoteProtocolHandler.cpp
-  cryptonote/src/Logging/ILogger.cpp
-  cryptonote/src/Logging/LoggerGroup.cpp
-  cryptonote/src/Logging/CommonLogger.cpp
-  cryptonote/src/Logging/LoggerManager.cpp
-  cryptonote/src/Logging/FileLogger.cpp
-  cryptonote/src/Logging/StreamLogger.cpp
-  cryptonote/src/Logging/ConsoleLogger.cpp
-  cryptonote/src/Logging/LoggerMessage.cpp
-  cryptonote/src/Logging/LoggerRef.cpp
-  cryptonote/src/BlockchainExplorer/BlockchainExplorer.cpp
-  cryptonote/src/BlockchainExplorer/BlockchainExplorerDataBuilder.cpp
-  cryptonote/src/BlockchainExplorer/BlockchainExplorerErrors.cpp
+  cryptocoynwallet/external/miniupnpc/connecthostport.c
+  cryptocoynwallet/external/miniupnpc/igd_desc_parse.c
+  cryptocoynwallet/external/miniupnpc/minisoap.c
+  cryptocoynwallet/external/miniupnpc/miniupnpc.c
+  cryptocoynwallet/external/miniupnpc/miniwget.c
+  cryptocoynwallet/external/miniupnpc/minixml.c
+  cryptocoynwallet/external/miniupnpc/portlistingparse.c
+  cryptocoynwallet/external/miniupnpc/receivedata.c
+  cryptocoynwallet/external/miniupnpc/upnpcommands.c
+  cryptocoynwallet/external/miniupnpc/upnpreplyparse.c
+  cryptocoynwallet/src/Common/Base58.cpp
+  cryptocoynwallet/src/Common/CommandLine.cpp
+  cryptocoynwallet/src/Common/Util.cpp
+  cryptocoynwallet/src/Common/StringTools.cpp
+  cryptocoynwallet/src/Common/JsonValue.cpp
+  cryptocoynwallet/src/Common/ConsoleTools.cpp
+  cryptocoynwallet/src/Common/MemoryInputStream.cpp
+  cryptocoynwallet/src/Common/PathTools.cpp
+  cryptocoynwallet/src/Common/StdInputStream.cpp
+  cryptocoynwallet/src/Common/StdOutputStream.cpp
+  cryptocoynwallet/src/Common/StreamTools.cpp
+  cryptocoynwallet/src/Common/StringOutputStream.cpp
+  cryptocoynwallet/src/Common/StringView.cpp
+  cryptocoynwallet/src/Common/VectorOutputStream.cpp
+  cryptocoynwallet/src/crypto/blake256.c
+  cryptocoynwallet/src/crypto/chacha8.c
+  cryptocoynwallet/src/crypto/crypto-ops-data.c
+  cryptocoynwallet/src/crypto/crypto-ops.c
+  cryptocoynwallet/src/crypto/crypto.cpp
+  cryptocoynwallet/src/crypto/groestl.c
+  cryptocoynwallet/src/crypto/hash-extra-blake.c
+  cryptocoynwallet/src/crypto/hash-extra-groestl.c
+  cryptocoynwallet/src/crypto/hash-extra-jh.c
+  cryptocoynwallet/src/crypto/hash-extra-skein.c
+  cryptocoynwallet/src/crypto/hash.c
+  cryptocoynwallet/src/crypto/jh.c
+  cryptocoynwallet/src/crypto/keccak.c
+  cryptocoynwallet/src/crypto/oaes_lib.c
+  cryptocoynwallet/src/crypto/random.c
+  cryptocoynwallet/src/crypto/skein.c
+  cryptocoynwallet/src/crypto/slow-hash.c
+  cryptocoynwallet/src/crypto/slow-hash.cpp
+  cryptocoynwallet/src/crypto/tree-hash.c
+  cryptocoynwallet/src/CryptoNoteCore/BlockchainIndices.cpp
+  cryptocoynwallet/src/CryptoNoteCore/BlockchainMessages.cpp
+  cryptocoynwallet/src/CryptoNoteCore/BlockIndex.cpp
+  cryptocoynwallet/src/CryptoNoteCore/CoreConfig.cpp
+  cryptocoynwallet/src/CryptoNoteCore/CryptoNoteBasic.cpp
+  cryptocoynwallet/src/CryptoNoteCore/CryptoNoteTools.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Currency.cpp
+  cryptocoynwallet/src/CryptoNoteCore/MinerConfig.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Transaction.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Account.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Blockchain.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Checkpoints.cpp
+  cryptocoynwallet/src/CryptoNoteCore/CryptoNoteBasicImpl.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Core.cpp
+  cryptocoynwallet/src/CryptoNoteCore/CryptoNoteFormatUtils.cpp
+  cryptocoynwallet/src/CryptoNoteCore/CryptoNoteSerialization.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Difficulty.cpp
+  cryptocoynwallet/src/CryptoNoteCore/IBlock.cpp
+  cryptocoynwallet/src/CryptoNoteCore/Miner.cpp
+  cryptocoynwallet/src/CryptoNoteCore/TransactionExtra.cpp
+  cryptocoynwallet/src/CryptoNoteCore/TransactionPool.cpp
+  cryptocoynwallet/src/CryptoNoteCore/TransactionPrefixImpl.cpp
+  cryptocoynwallet/src/CryptoNoteCore/TransactionUtils.cpp
+  cryptocoynwallet/src/InProcessNode/InProcessNode.cpp
+  cryptocoynwallet/src/InProcessNode/InProcessNodeErrors.cpp
+  cryptocoynwallet/src/NodeRpcProxy/NodeErrors.cpp
+  cryptocoynwallet/src/NodeRpcProxy/NodeRpcProxy.cpp
+  cryptocoynwallet/src/P2p/NetNodeConfig.cpp
+  cryptocoynwallet/src/Serialization/BinaryInputStreamSerializer.cpp
+  cryptocoynwallet/src/Serialization/BinaryOutputStreamSerializer.cpp
+  cryptocoynwallet/src/Serialization/JsonInputValueSerializer.cpp
+  cryptocoynwallet/src/Serialization/JsonOutputStreamSerializer.cpp
+  cryptocoynwallet/src/Serialization/KVBinaryInputStreamSerializer.cpp
+  cryptocoynwallet/src/Serialization/KVBinaryOutputStreamSerializer.cpp
+  cryptocoynwallet/src/Serialization/SerializationOverloads.cpp
+  cryptocoynwallet/src/Transfers/BlockchainSynchronizer.cpp
+  cryptocoynwallet/src/Transfers/SynchronizationState.cpp
+  cryptocoynwallet/src/Transfers/TransfersConsumer.cpp
+  cryptocoynwallet/src/Transfers/TransfersContainer.cpp
+  cryptocoynwallet/src/Transfers/TransfersSubscription.cpp
+  cryptocoynwallet/src/Transfers/TransfersSynchronizer.cpp
+  cryptocoynwallet/src/Wallet/LegacyKeysImporter.cpp
+  cryptocoynwallet/src/Wallet/WalletAsyncContextCounter.cpp
+  cryptocoynwallet/src/Wallet/WalletErrors.cpp
+  cryptocoynwallet/src/WalletLegacy/KeysStorage.cpp
+  cryptocoynwallet/src/WalletLegacy/WalletLegacy.cpp
+  cryptocoynwallet/src/WalletLegacy/WalletHelper.cpp
+  cryptocoynwallet/src/WalletLegacy/WalletLegacySerializer.cpp
+  cryptocoynwallet/src/WalletLegacy/WalletLegacySerialization.cpp
+  cryptocoynwallet/src/WalletLegacy/WalletTransactionSender.cpp
+  cryptocoynwallet/src/WalletLegacy/WalletUnconfirmedTransactions.cpp
+  cryptocoynwallet/src/WalletLegacy/WalletUserTransactionsCache.cpp
+  cryptocoynwallet/src/System/ContextGroup.cpp
+  cryptocoynwallet/src/System/Event.cpp
+  cryptocoynwallet/src/System/EventLock.cpp
+  cryptocoynwallet/src/System/InterruptedException.cpp
+  cryptocoynwallet/src/System/Ipv4Address.cpp
+  cryptocoynwallet/src/System/TcpStream.cpp
+  cryptocoynwallet/src/HTTP/HttpRequest.cpp
+  cryptocoynwallet/src/HTTP/HttpParser.cpp
+  cryptocoynwallet/src/HTTP/HttpParserErrorCodes.cpp
+  cryptocoynwallet/src/HTTP/HttpResponse.cpp
+  cryptocoynwallet/src/Rpc/HttpClient.cpp
+  cryptocoynwallet/src/Rpc/JsonRpc.cpp
+  cryptocoynwallet/src/P2p/NetNode.cpp
+  cryptocoynwallet/src/P2p/LevinProtocol.cpp
+  cryptocoynwallet/src/P2p/NetNodeConfig.cpp
+  cryptocoynwallet/src/P2p/PeerListManager.cpp
+  cryptocoynwallet/src/CryptoNoteProtocol/CryptoNoteProtocolHandler.cpp
+  cryptocoynwallet/src/Logging/ILogger.cpp
+  cryptocoynwallet/src/Logging/LoggerGroup.cpp
+  cryptocoynwallet/src/Logging/CommonLogger.cpp
+  cryptocoynwallet/src/Logging/LoggerManager.cpp
+  cryptocoynwallet/src/Logging/FileLogger.cpp
+  cryptocoynwallet/src/Logging/StreamLogger.cpp
+  cryptocoynwallet/src/Logging/ConsoleLogger.cpp
+  cryptocoynwallet/src/Logging/LoggerMessage.cpp
+  cryptocoynwallet/src/Logging/LoggerRef.cpp
+  cryptocoynwallet/src/BlockchainExplorer/BlockchainExplorer.cpp
+  cryptocoynwallet/src/BlockchainExplorer/BlockchainExplorerDataBuilder.cpp
+  cryptocoynwallet/src/BlockchainExplorer/BlockchainExplorerErrors.cpp
 )
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
@@ -184,7 +184,7 @@ if (WIN32)
 	message(FATAL_ERROR "Only MSVC is supported on this platform")
   endif ()
   add_definitions(/D_CRT_SECURE_NO_WARNINGS /D_WIN32_WINNT=0x0600 /DSTATICLIB)
-  include_directories(cryptonote/src/platform/msc)
+  include_directories(cryptocoynwallet/src/platform/msc)
 
   set(PLATFORM_DIR Windows)
   set(BUILD_PLATFORM WIN32)
@@ -192,7 +192,7 @@ if (WIN32)
   set(QTMAIN Qt5::WinMain)
 
 elseif (UNIX)
-  set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} cryptonote/external/miniupnpc/minissdpc.c)
+  set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} cryptocoynwallet/external/miniupnpc/minissdpc.c)
   if (APPLE)
     enable_language(ASM)
     file(GLOB_RECURSE OBJC_SOURCES src/*.mm)
@@ -228,8 +228,8 @@ elseif (UNIX)
   endif (APPLE)
 endif ()
 
-include_directories(cryptonote/src/Platform/${PLATFORM_DIR})
-file(GLOB PLATFORM_SOURCES cryptonote/src/Platform/${PLATFORM_DIR}/System/*)
+include_directories(cryptocoynwallet/src/Platform/${PLATFORM_DIR})
+file(GLOB PLATFORM_SOURCES cryptocoynwallet/src/Platform/${PLATFORM_DIR}/System/*)
 set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} ${PLATFORM_SOURCES})
 
 add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
